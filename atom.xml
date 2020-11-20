@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-11-20T11:30:52.148Z</updated>
+  <updated>2020-11-20T17:20:54.958Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,14 +17,35 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="http://example.com/2020/11/20/hello-world/"/>
-    <id>http://example.com/2020/11/20/hello-world/</id>
-    <published>2020-11-20T06:11:53.919Z</published>
-    <updated>2020-11-20T11:30:52.148Z</updated>
+    <title>如何让 Hexo 支持 LaTeX ？</title>
+    <link href="http://example.com/2020/11/20/Supporting-LaTeX-in-Hexo/"/>
+    <id>http://example.com/2020/11/20/Supporting-LaTeX-in-Hexo/</id>
+    <published>2020-11-20T15:19:41.000Z</published>
+    <updated>2020-11-20T17:20:54.958Z</updated>
     
     
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;　　这是&lt;c style=&quot;color: red;&quot;&gt;&lt;strong&gt;教程！教程！教程！&lt;/strong&gt;&lt;/c&gt; (重要的事情说三遍)&lt;br&gt;　　果然是随心的人，第一篇教程是 Hexo 的教程，一个刚刚才接触 Hexo 的菜*就敢在此&lt;del&gt;饶舌&lt;/del&gt;教别人设置 Hexo ？&lt;br&gt;</summary>
+    
+    
+    
+    <category term="Hexo 教程" scheme="http://example.com/categories/Hexo-%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="Hexo" scheme="http://example.com/tags/Hexo/"/>
+    
+    <category term="LaTeX" scheme="http://example.com/tags/LaTeX/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>printf(&quot;Hello World!&quot;);</title>
+    <link href="http://example.com/2020/11/20/printf-hello-world/"/>
+    <id>http://example.com/2020/11/20/printf-hello-world/</id>
+    <published>2020-11-20T06:31:26.000Z</published>
+    <updated>2020-11-20T15:20:14.920Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;　　今天 (2020-11-20) 在C#课堂上看到 Linyx 打开了他的 Blog 网站。我顿时产生了兴趣，便向他请教，&lt;del&gt;以完全白嫖的方式&lt;/del&gt;制作并开启了我自己的 Blog 网站。教学链接：&lt;a href=&quot;https://linyx.tk/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/&quot;&gt;Linyx’s Home&lt;/a&gt;&lt;br&gt;　　原本我以为&lt;a href=&quot;https://hbpencil.ga/&quot;&gt;hbpencil.ga&lt;/a&gt;这个域名很热门，结果上&lt;a href=&quot;http://www.freenom.com/zh/index.html&quot;&gt;Freenom官网&lt;/a&gt;一查，是我想多了，五大免费顶级域名 &lt;c style=&quot;color: red;&quot;&gt;.tk .ml .ga .cf .gq&lt;/c&gt; 都没人注册（笑哭）。&lt;br&gt;</summary>
     
     
     

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>如何让 Hexo 支持 LaTeX ？ | HBpencil.ga</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="这是教程！教程！教程！ (重要的事情说三遍)　　果然是随心的人，第一篇教程是 Hexo 的教程，一个刚刚才接触 Hexo 的菜*就敢在此饶舌教别人设置 Hexo ？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何让 Hexo 支持 LaTeX ？">
+<meta property="og:url" content="http://example.com/2020/11/20/Supporting-LaTeX-in-Hexo/index.html">
+<meta property="og:site_name" content="HBpencil.ga">
+<meta property="og:description" content="这是教程！教程！教程！ (重要的事情说三遍)　　果然是随心的人，第一篇教程是 Hexo 的教程，一个刚刚才接触 Hexo 的菜*就敢在此饶舌教别人设置 Hexo ？">
+<meta property="og:locale" content="zh_HK">
+<meta property="article:published_time" content="2020-11-20T15:19:41.000Z">
+<meta property="article:modified_time" content="2020-11-20T17:20:54.958Z">
+<meta property="article:author" content="Chan Ka Chi">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="LaTeX">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="HBpencil.ga" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">HBpencil.ga</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Supporting-LaTeX-in-Hexo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/11/20/Supporting-LaTeX-in-Hexo/" class="article-date">
+  <time datetime="2020-11-20T15:19:41.000Z" itemprop="datePublished">2020-11-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Hexo-%E6%95%99%E7%A8%8B/">Hexo 教程</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      如何让 Hexo 支持 LaTeX ？
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>　　这是<c style="color: red;"><strong>教程！教程！教程！</strong></c> (重要的事情说三遍)<br>　　果然是随心的人，第一篇教程是 Hexo 的教程，一个刚刚才接触 Hexo 的菜*就敢在此<del>饶舌</del>教别人设置 Hexo ？<br><a id="more"></a></p>
+<h2 id="第一步：把-hexo-renderer-marked-换成-hexo-renderer-kmarked-。"><a href="#第一步：把-hexo-renderer-marked-换成-hexo-renderer-kmarked-。" class="headerlink" title="第一步：把 hexo-renderer-marked 换成 hexo-renderer-kmarked 。"></a><c style="color: red;"><strong>第一步：</strong></c>把 <c style="color: brown;"><code>hexo-renderer-marked</code></c> 换成 <c style="color: brown;"><code>hexo-renderer-kmarked</code></c> 。</h2><p>　　打开 CMD ， cd 到你的博客文件夹，输入指令：<br>  <pre class="line-numbers language-none"><code class="language-none">npm unistall hexo-renderer-marked --save
+npm istall hexo-renderer-kmarked --save<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><br>　　Kmarked 是 Marked 的进阶版，能够支持渲染 LaTeX 公式，就像 C++ 有 class 而 C 没有一样。</p>
+<h2 id="第二步：把-hexo-math-换成-hexo-renderer-mathjax-。"><a href="#第二步：把-hexo-math-换成-hexo-renderer-mathjax-。" class="headerlink" title="第二步：把 hexo-math 换成 hexo-renderer-mathjax 。"></a><c style="color: red;"><strong>第二步：</strong></c>把 <c style="color: brown;"><code>hexo-math</code></c> 换成 <c style="color: brown;"><code>hexo-renderer-mathjax</code></c> 。</h2><p>　　输入指令：<br>  <pre class="line-numbers language-none"><code class="language-none">npm unistall hexo-math --save
+npm istall hexo-renderer-mathjax --save<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><br>　　作用同上。</p>
+<h2 id="第三步：更改文件配置"><a href="#第三步：更改文件配置" class="headerlink" title="第三步：更改文件配置"></a><c style="color: red;"><strong>第三步：</strong></c>更改文件配置</h2><p>　　1. 打开 <c style="color: brown;"><code>/node_modules/hexo-renderer-kramed/lib/renderer.js</code></c>：<br><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">//把第65行开始的函数段改成这样：</span>
+<span class="token keyword">function</span> <span class="token function">formatText</span><span class="token punctuation">(</span><span class="token parameter">text</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> text<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></p>
+<p>　　2. 打开 <c style="color: brown;"><code>/node_modules/hexo-renderer-mathjax/mathjax.html</code></c>：<br><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml">//把第15行改成这样：
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></p>
+<p>　　3. 打开 <c style="color: brown;"><code>/node_modules/kramed/lib/rules/inline.js</code></c>：<br><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">//把第11行改成这样：</span>
+escape<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\\([`*\[\]()# +\-.!_>])</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+<span class="token comment">//把第20行改成这样：</span>
+em<span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\*((?:\*\*|[\s\S])+?)\*(?!\*)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></p>
+<h2 id="第四步：开启-MathJax"><a href="#第四步：开启-MathJax" class="headerlink" title="第四步：开启 MathJax"></a><c style="color: red;"><strong>第四步：</strong></c>开启 MathJax</h2><p>　　在<c style="color: brown;"><code>config.yml</code></c>里加上：<br><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">mathjax</span><span class="token punctuation">:</span>
+    <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+//或者
+<span class="token key atrule">mathjax</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+//冒号后面都要空格哦<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<h2 id="第五步：开始使用-LaTeX-！"><a href="#第五步：开始使用-LaTeX-！" class="headerlink" title="第五步：开始使用 LaTeX ！"></a><c style="color: red;"><strong>第五步：</strong></c>开始使用 LaTeX ！</h2><p>　　以上都完成了之后，就可以在 Hexo 博客文章里插入 LaTeX 了！<br>　　<c style="color: red;"><strong>用法：</strong></c> <code>$ &lt;LaTeX 公式&gt; $</code> (多行则要两个$号)<br>　　猜猜这公式是什么？（滑稽）</p>
+<h1>$$
+x^{2}+(y-\sqrt[3]{x^{2}})^{2}=1
+$$</h1>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/11/20/Supporting-LaTeX-in-Hexo/" data-id="ckhqj5wpl0000tgx08k3zhwso" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LaTeX/" rel="tag">LaTeX</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/11/20/printf-hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">printf(&#34;Hello World!&#34;);</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo-%E6%95%99%E7%A8%8B/">Hexo 教程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LaTeX/" rel="tag">LaTeX</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/LaTeX/" style="font-size: 10px;">LaTeX</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/11/20/Supporting-LaTeX-in-Hexo/">如何让 Hexo 支持 LaTeX ？</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/20/printf-hello-world/">printf(&#34;Hello World!&#34;);</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Chan Ka Chi<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

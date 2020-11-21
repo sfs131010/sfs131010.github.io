@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>HBpencil.ga</title>
+  <title>家志嘅家</title>
   
-  <subtitle>家志嘅家</subtitle>
+  <subtitle>HBpencil.ga</subtitle>
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-11-20T17:20:54.958Z</updated>
+  <updated>2020-11-21T16:55:50.008Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,57 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>C# 笔记：反射</title>
+    <link href="http://example.com/2020/11/21/C-Reflection/"/>
+    <id>http://example.com/2020/11/21/C-Reflection/</id>
+    <published>2020-11-21T14:35:37.000Z</published>
+    <updated>2020-11-21T16:55:50.008Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;简介：&quot;&gt;&lt;a href=&quot;#简介：&quot; class=&quot;headerlink&quot; title=&quot;简介：&quot;&gt;&lt;/a&gt;简介：&lt;/h2&gt;&lt;p&gt;　　顾名思义，是记录 反射(Reflection) 用法的 C# 笔记~&lt;br&gt;　　反射在《C# 程序设计教程（第3版）》中位于「5.7 属性」一节。&lt;/p&gt;
+&lt;h2 id=&quot;引用书中定义如下：&quot;&gt;&lt;a href=&quot;#引用书中定义如下：&quot; class=&quot;headerlink&quot; title=&quot;引用书中定义如下：&quot;&gt;&lt;/a&gt;引用书中定义如下：&lt;/h2&gt;&lt;blockquote&gt;
+&lt;c style=&quot;color: #07e4c9;&quot;&gt;　　反射(Reflection)是 .NET 中重要的机制，通过反射可以在运行时获得 .NET 中每一个类型（包括类、结构、委托、接口、枚举等）的成员，包括方法、属性、事件、和构造函数等，还可以获得每个成员的名称、限定符和参数等。有了反射，编程人员即可对每一个类型了如指掌。如果获得了构造函数的信息，可以直接创建对象，即使这个对象的类型在编译时还不知道。&lt;/c&gt;
+
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="C# 笔记" scheme="http://example.com/categories/C-%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="C#" scheme="http://example.com/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C# 笔记：Get 和 Set</title>
+    <link href="http://example.com/2020/11/21/C-Get-and-Set/"/>
+    <id>http://example.com/2020/11/21/C-Get-and-Set/</id>
+    <published>2020-11-21T14:35:19.000Z</published>
+    <updated>2020-11-21T16:11:04.352Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;简介：&quot;&gt;&lt;a href=&quot;#简介：&quot; class=&quot;headerlink&quot; title=&quot;简介：&quot;&gt;&lt;/a&gt;简介：&lt;/h2&gt;&lt;p&gt;　　顾名思义，是记录 Get 和 Set 用法的 C# 笔记~&lt;br&gt;　　Get 和 Set 在《C# 程序设计教程（第3版）》中位于「5.7 属性」一节。&lt;/p&gt;
+&lt;h2 id=&quot;引用书中定义如下：&quot;&gt;&lt;a href=&quot;#引用书中定义如下：&quot; class=&quot;headerlink&quot; title=&quot;引用书中定义如下：&quot;&gt;&lt;/a&gt;引用书中定义如下：&lt;/h2&gt;&lt;blockquote&gt;
+&lt;c style=&quot;color: #07e4c9;&quot;&gt;　　属性与字段相似，都是类成员，都有类型，可以被赋值和读取。属性提供了对类或对象成员的访问。通常情况下，将字段设置成私有的，设计一个对其进行读或写的属性。因此更充分地体现了对象的封装性。&lt;/c&gt;
+
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="C# 笔记" scheme="http://example.com/categories/C-%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="C#" scheme="http://example.com/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
     <title>如何让 Hexo 支持 LaTeX ？</title>
     <link href="http://example.com/2020/11/20/Supporting-LaTeX-in-Hexo/"/>
     <id>http://example.com/2020/11/20/Supporting-LaTeX-in-Hexo/</id>
     <published>2020-11-20T15:19:41.000Z</published>
-    <updated>2020-11-20T17:20:54.958Z</updated>
+    <updated>2020-11-21T16:16:14.458Z</updated>
     
     
     <summary type="html">&lt;p&gt;　　这是&lt;c style=&quot;color: red;&quot;&gt;&lt;strong&gt;教程！教程！教程！&lt;/strong&gt;&lt;/c&gt; (重要的事情说三遍)&lt;br&gt;　　果然是随心的人，第一篇教程是 Hexo 的教程，一个刚刚才接触 Hexo 的菜*就敢在此&lt;del&gt;饶舌&lt;/del&gt;教别人设置 Hexo ？&lt;br&gt;</summary>
@@ -42,7 +88,7 @@
     <link href="http://example.com/2020/11/20/printf-hello-world/"/>
     <id>http://example.com/2020/11/20/printf-hello-world/</id>
     <published>2020-11-20T06:31:26.000Z</published>
-    <updated>2020-11-20T15:20:14.920Z</updated>
+    <updated>2020-11-21T16:15:10.530Z</updated>
     
     
     <summary type="html">&lt;p&gt;　　今天 (2020-11-20) 在C#课堂上看到 Linyx 打开了他的 Blog 网站。我顿时产生了兴趣，便向他请教，&lt;del&gt;以完全白嫖的方式&lt;/del&gt;制作并开启了我自己的 Blog 网站。教学链接：&lt;a href=&quot;https://linyx.tk/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/&quot;&gt;Linyx’s Home&lt;/a&gt;&lt;br&gt;　　原本我以为&lt;a href=&quot;https://hbpencil.ga/&quot;&gt;hbpencil.ga&lt;/a&gt;这个域名很热门，结果上&lt;a href=&quot;http://www.freenom.com/zh/index.html&quot;&gt;Freenom官网&lt;/a&gt;一查，是我想多了，五大免费顶级域名 &lt;c style=&quot;color: red;&quot;&gt;.tk .ml .ga .cf .gq&lt;/c&gt; 都没人注册（笑哭）。&lt;br&gt;</summary>

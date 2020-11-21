@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+<meta name="description" content="简介：　　顾名思义，是记录 反射(Reflection) 用法的 C# 笔记~　　反射在《C# 程序设计教程（第3版）》中位于「5.7 属性」一节。 引用书中定义如下： 　　反射(Reflection)是 .NET 中重要的机制，通过反射可以在运行时获得 .NET 中每一个类型（包括类、结构、委托、接口、枚举等）的成员，包括方法、属性、事件、和构造函数等，还可以获得每个成员的名称、限定符和参数等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C# 笔记：反射">
+<meta property="og:url" content="http://example.com/2020/11/21/C-Reflection/index.html">
+<meta property="og:site_name" content="家志嘅家">
+<meta property="og:description" content="简介：　　顾名思义，是记录 反射(Reflection) 用法的 C# 笔记~　　反射在《C# 程序设计教程（第3版）》中位于「5.7 属性」一节。 引用书中定义如下： 　　反射(Reflection)是 .NET 中重要的机制，通过反射可以在运行时获得 .NET 中每一个类型（包括类、结构、委托、接口、枚举等）的成员，包括方法、属性、事件、和构造函数等，还可以获得每个成员的名称、限定符和参数等。">
+<meta property="og:locale" content="zh_HK">
+<meta property="og:image" content="http://example.com/2020/11/21/C-Reflection/1.png">
+<meta property="article:published_time" content="2020-11-21T14:35:37.000Z">
+<meta property="article:modified_time" content="2020-11-21T16:55:50.008Z">
+<meta property="article:author" content="Chan Ka Chi">
+<meta property="article:tag" content="C#">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/11/21/C-Reflection/1.png">
+
+
+<link rel="canonical" href="http://example.com/2020/11/21/C-Reflection/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-HK'
+  };
+</script>
+<title>C# 笔记：反射 | 家志嘅家</title>
+  
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="家志嘅家" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">家志嘅家</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">HBpencil.ga</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概覽
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">简介：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E4%B9%A6%E4%B8%AD%E5%AE%9A%E4%B9%89%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">引用书中定义如下：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">说明：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">实例：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#using"><span class="nav-number">4.1.</span> <span class="nav-text">using</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class-HB-Reflection-%E6%99%AE%E9%80%9A%E5%8F%8D%E5%B0%84"><span class="nav-number">4.2.</span> <span class="nav-text">class HB_Reflection { } 普通反射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reflection-dll-%E7%A8%8B%E5%BA%8F%E9%9B%86-dll-%E5%8F%8D%E5%B0%84"><span class="nav-number">4.3.</span> <span class="nav-text">Reflection_dll { } 程序集(.dll)反射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#main%E8%B0%83%E7%94%A8%EF%BC%88%E5%8F%8D%E5%B0%84%E7%A8%8B%E5%BA%8F%E9%9B%86%EF%BC%89"><span class="nav-number">4.4.</span> <span class="nav-text">main调用（反射程序集）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E8%BE%93%E5%87%BA"><span class="nav-number">4.5.</span> <span class="nav-text">结果输出</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chan Ka Chi</p>
+  <div class="site-description" itemprop="description">HBpencil用來放筆記、記錄的博客網站</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-HK">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/21/C-Reflection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chan Ka Chi">
+      <meta itemprop="description" content="HBpencil用來放筆記、記錄的博客網站">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="家志嘅家">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C# 笔记：反射
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-11-21 22:35:37" itemprop="dateCreated datePublished" datetime="2020-11-21T22:35:37+08:00">2020-11-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2020-11-22 00:55:50" itemprop="dateModified" datetime="2020-11-22T00:55:50+08:00">2020-11-22</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/C-%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">C# 笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="简介："><a href="#简介：" class="headerlink" title="简介："></a>简介：</h2><p>　　顾名思义，是记录 反射(Reflection) 用法的 C# 笔记~<br>　　反射在《C# 程序设计教程（第3版）》中位于「5.7 属性」一节。</p>
+<h2 id="引用书中定义如下："><a href="#引用书中定义如下：" class="headerlink" title="引用书中定义如下："></a>引用书中定义如下：</h2><blockquote>
+<c style="color: #07e4c9;">　　反射(Reflection)是 .NET 中重要的机制，通过反射可以在运行时获得 .NET 中每一个类型（包括类、结构、委托、接口、枚举等）的成员，包括方法、属性、事件、和构造函数等，还可以获得每个成员的名称、限定符和参数等。有了反射，编程人员即可对每一个类型了如指掌。如果获得了构造函数的信息，可以直接创建对象，即使这个对象的类型在编译时还不知道。</c>
+
+</blockquote>
+<a id="more"></a>
+<h2 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h2><p>　　要用反射，记得要调用<code>System.Reflection</code>！<br>　　反射有两种，透过名字，和透过程序集(.dll)。<br>　　·Type：项目<br>　　　　获取：（透过名字，只有一个）<br>　　　　　　　<code>Type &lt;项目变量名&gt; = &lt;项目变量名&gt;.GetType(&lt;想反射项目的名字，如&quot;System.Int32&quot;&gt;)</code><br>　　　　　　　（透过程序集，一或多个）<br>　　　　　　　<code>Type[] &lt;项目数组名&gt; = &lt;程序集变量名&gt;.GetTypes();</code><br>　　·Assembly：程序集，如果要放射.dll，要先赋值 Assembly，再获取 Type。<br>　　　　获取：<code>Assembly &lt;程序集变量名&gt; = Assembly.LoadFrom(&lt;.dll档位址&gt;);</code><br>　　·MemberInfo：项目成员<br>　　　　获取：（指定一个）<br>　　　　　　　<code>MemberInfo &lt;成员变量名&gt; = &lt;项目变量名&gt;.GetMember(&lt;成员名&gt;);</code><br>　　　　　　　（全部）<br>　　　　　　　<code>MemberInfo[] &lt;成员数组名&gt; = &lt;项目变量名&gt;.GetMembers();</code><br>　　·MethodInfo：项目方法<br>　　　　获取：（指定一个）<br>　　　　　　　<code>MethodInfo &lt;方法变量名&gt; = &lt;项目变量名&gt;.GetMethod(&lt;方法名&gt;);</code><br>　　　　　　　（全部）<br>　　　　　　　<code>MethodInfo[] &lt;方法数组名&gt; = &lt;项目变量名&gt;.GetMethods();</code><br>　　·FieldInfo：项目字段<br>　　　　获取：（指定一个）<br>　　　　　　　<code>FieldInfo &lt;字段变量名&gt; = &lt;项目变量名&gt;.GetField(&lt;字段名&gt;);</code><br>　　　　　　　（全部）　　<br>　　　　　　　<code>FieldInfo[] &lt;字段数组名&gt; = &lt;项目变量名&gt;.GetFields();</code><br>　　·ConstructorInfo：项目构造函数<br>　　　　获取：（指定一个）<br>　　　　　　　<code>ConstructorInfo &lt;构造函数变量名&gt; = &lt;项目变量名&gt;.GetConstructor(&lt;构造函数名&gt;);</code><br>　　　　　　　（全部）　　<br>　　　　　　　<code>ConstructorInfo[] &lt;构造函数数组名&gt; = &lt;项目变量名&gt;.GetConstructors();</code><br>　　·PropertyInfo：项目属性<br>　　　　获取：（指定一个）<br>　　　　　　　<code>PropertyInfo &lt;属性变量名&gt; = &lt;项目变量名&gt;.GetProperty(&lt;属性名&gt;);</code><br>　　　　　　　（全部）　　<br>　　　　　　　<code>PropertyInfo[] &lt;属性数组名&gt; = &lt;项目变量名&gt;.GetPropertys();</code><br>　　·EventInfo：项目事件<br>　　　　获取：（指定一个）<br>　　　　　　　<code>EventInfo &lt;事件变量名&gt; = &lt;项目变量名&gt;.GetEvent(&lt;事件名&gt;);</code><br>　　　　　　　（全部）　　<br>　　　　　　　<code>EventInfo[] &lt;事件数组名&gt; = &lt;项目变量名&gt;.GetEvents();</code><br>　　·ParameterInfo：<strong>方法</strong>参数<br>　　　　获取：（全部）　　<br>　　　　　　　<code>ParameterInfo[] &lt;参数数组名&gt; = &lt;方法变量名&gt;.GetParameters();</code> </p>
+<h2 id="实例："><a href="#实例：" class="headerlink" title="实例："></a>实例：</h2><h3 id="using"><a href="#using" class="headerlink" title="using"></a>using</h3><pre class="line-numbers language-csharp" data-language="csharp"><code class="language-csharp"><span class="token keyword">using</span> <span class="token namespace">System</span><span class="token punctuation">;</span>
+<span class="token keyword">using</span> <span class="token namespace">System<span class="token punctuation">.</span>Reflection</span><span class="token punctuation">;</span> <span class="token comment">//别忘了加</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="class-HB-Reflection-普通反射"><a href="#class-HB-Reflection-普通反射" class="headerlink" title="class HB_Reflection { } 普通反射"></a>class HB_Reflection { } 普通反射</h3><pre class="line-numbers language-csharp" data-language="csharp"><code class="language-csharp"><span class="token keyword">class</span> <span class="token class-name">HB_Reflection</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">protected</span> <span class="token class-name"><span class="token keyword">string</span></span> Classname<span class="token punctuation">;</span> <span class="token comment">//项目名称</span>
+    <span class="token keyword">protected</span> <span class="token class-name">Type</span> Type<span class="token punctuation">;</span> <span class="token comment">//项目</span>
+    <span class="token keyword">protected</span> <span class="token return-type class-name">MemberInfo<span class="token punctuation">[</span><span class="token punctuation">]</span></span> Mmi <span class="token punctuation">&#123;</span> <span class="token comment">//项目的成员数组</span>
+        <span class="token keyword">get</span> <span class="token punctuation">&#123;</span> <span class="token comment">//这里就运用了属性</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>Type <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+            <span class="token keyword">else</span> <span class="token keyword">return</span> Type<span class="token punctuation">.</span><span class="token function">GetMembers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//获取项目的成员</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">protected</span> <span class="token return-type class-name">MethodInfo<span class="token punctuation">[</span><span class="token punctuation">]</span></span> Mti <span class="token punctuation">&#123;</span> <span class="token comment">//项目的方法数组</span>
+        <span class="token keyword">get</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>Type <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+            <span class="token keyword">else</span> <span class="token keyword">return</span> Type<span class="token punctuation">.</span><span class="token function">GetMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">protected</span> <span class="token return-type class-name">FieldInfo<span class="token punctuation">[</span><span class="token punctuation">]</span></span> Fi <span class="token punctuation">&#123;</span> <span class="token comment">//项目的字段数组，即常量</span>
+        <span class="token keyword">get</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>Type <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+            <span class="token keyword">else</span> <span class="token keyword">return</span> Type<span class="token punctuation">.</span><span class="token function">GetFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">protected</span> <span class="token return-type class-name">ConstructorInfo<span class="token punctuation">[</span><span class="token punctuation">]</span></span> Ci <span class="token punctuation">&#123;</span> <span class="token comment">//项目的构造函数数组</span>
+        <span class="token keyword">get</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>Type <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+            <span class="token keyword">else</span> <span class="token keyword">return</span> Type<span class="token punctuation">.</span><span class="token function">GetConstructors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">protected</span> <span class="token return-type class-name">PropertyInfo<span class="token punctuation">[</span><span class="token punctuation">]</span></span> Pi <span class="token punctuation">&#123;</span> <span class="token comment">//不是3.14蛤，是项目的属性数组</span>
+        <span class="token keyword">get</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>Type <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+            <span class="token keyword">else</span> <span class="token keyword">return</span> Type<span class="token punctuation">.</span><span class="token function">GetProperties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">protected</span> <span class="token return-type class-name">EventInfo<span class="token punctuation">[</span><span class="token punctuation">]</span></span> Ei <span class="token punctuation">&#123;</span> <span class="token comment">//项目的事件数组</span>
+        <span class="token keyword">get</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>Type <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+            <span class="token keyword">else</span> <span class="token keyword">return</span> Type<span class="token punctuation">.</span><span class="token function">GetEvents</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token function">Reflection</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">string</span></span> name<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">//构造函数</span>
+        Classname <span class="token operator">=</span> name<span class="token punctuation">;</span>
+        Type <span class="token operator">=</span> Type<span class="token punctuation">.</span><span class="token function">GetType</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">protected</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Show</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">//显示反射结果</span>
+        <span class="token comment">//如果Type == null，就是反射错误了。</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>Type <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"「&#123;0&#125;」：反射错误！"</span><span class="token punctuation">,</span> Classname<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+        <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"「&#123;0&#125;」类共有 &#123;1&#125; 个「成员」"</span><span class="token punctuation">,</span> Classname<span class="token punctuation">,</span> Mmi<span class="token punctuation">.</span>Length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>Mti<span class="token punctuation">.</span>Length <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"  共 &#123;0&#125; 个「方法」，列表如下："</span><span class="token punctuation">,</span> Mti<span class="token punctuation">.</span>Length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token class-name">MethodInfo</span> item <span class="token keyword">in</span> Mti<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    Console<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token string">"    -&#123;0&#125;"</span><span class="token punctuation">,</span> item<span class="token punctuation">.</span>Name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">ParameterInfo<span class="token punctuation">[</span><span class="token punctuation">]</span></span> PaI <span class="token operator">=</span> item<span class="token punctuation">.</span><span class="token function">GetParameters</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//方法要多少参数</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>PaI<span class="token punctuation">.</span><span class="token function">GetLength</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                        Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"，需要 &#123;0&#125; 个参数"</span><span class="token punctuation">,</span> PaI<span class="token punctuation">.</span><span class="token function">GetLength</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token class-name">ParameterInfo</span> pai <span class="token keyword">in</span> PaI<span class="token punctuation">)</span> Console<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token string">"\t&#123;0&#125; &#123;1&#125;"</span><span class="token punctuation">,</span> pai<span class="token punctuation">.</span>ParameterType<span class="token punctuation">,</span> pai<span class="token punctuation">.</span>Name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">&#125;</span>
+                    Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>Fi<span class="token punctuation">.</span>Length <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"  共 &#123;0&#125; 个「字段」，列表如下："</span><span class="token punctuation">,</span> Fi<span class="token punctuation">.</span>Length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token class-name">FieldInfo</span> item <span class="token keyword">in</span> Fi<span class="token punctuation">)</span> Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"    -&#123;0&#125;"</span><span class="token punctuation">,</span> item<span class="token punctuation">.</span>Name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>Ci<span class="token punctuation">.</span>Length <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"  共 &#123;0&#125; 个「析构函数」，列表如下："</span><span class="token punctuation">,</span> Ci<span class="token punctuation">.</span>Length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token class-name">ConstructorInfo</span> item <span class="token keyword">in</span> Ci<span class="token punctuation">)</span> Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"    -&#123;0&#125;"</span><span class="token punctuation">,</span> item<span class="token punctuation">.</span>Name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>Pi<span class="token punctuation">.</span>Length <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"  共 &#123;0&#125; 个「属性」，列表如下："</span><span class="token punctuation">,</span> Pi<span class="token punctuation">.</span>Length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token class-name">PropertyInfo</span> item <span class="token keyword">in</span> Pi<span class="token punctuation">)</span> Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"    -&#123;0&#125;"</span><span class="token punctuation">,</span> item<span class="token punctuation">.</span>Name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>Ei<span class="token punctuation">.</span>Length <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"  共 &#123;0&#125; 个「事件」，列表如下："</span><span class="token punctuation">,</span> Ei<span class="token punctuation">.</span>Length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token class-name">EventInfo</span> item <span class="token keyword">in</span> Ei<span class="token punctuation">)</span> Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"    -&#123;0&#125;"</span><span class="token punctuation">,</span> item<span class="token punctuation">.</span>Name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">virtual</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Display</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">Show</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">virtual</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Display</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">int</span></span> page<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">Show</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Reflection-dll-程序集-dll-反射"><a href="#Reflection-dll-程序集-dll-反射" class="headerlink" title="Reflection_dll { } 程序集(.dll)反射"></a>Reflection_dll { } 程序集(.dll)反射</h3><pre class="line-numbers language-csharp" data-language="csharp"><code class="language-csharp"><span class="token keyword">class</span> <span class="token class-name">Reflection_dll</span> <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">Reflection</span></span> <span class="token punctuation">&#123;</span> 
+    <span class="token keyword">public</span> <span class="token class-name">Assembly</span> assembly<span class="token punctuation">;</span> <span class="token comment">//加载程序集</span>
+    <span class="token keyword">public</span> <span class="token class-name">Type<span class="token punctuation">[</span><span class="token punctuation">]</span></span> types<span class="token punctuation">;</span> <span class="token comment">//项目数组</span>
+    <span class="token keyword">private</span> <span class="token class-name"><span class="token keyword">int</span></span> pages<span class="token punctuation">;</span> <span class="token comment">//每10个项目为1页，分开显示。</span>
+    <span class="token keyword">public</span> <span class="token function">Reflection_dll</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">string</span></span> name<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token keyword">base</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        assembly <span class="token operator">=</span> Assembly<span class="token punctuation">.</span><span class="token function">LoadFrom</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        types <span class="token operator">=</span> assembly<span class="token punctuation">.</span><span class="token function">GetTypes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        pages <span class="token operator">=</span> types<span class="token punctuation">.</span><span class="token function">GetLength</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">10</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Display</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">//显示</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>pages <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"「&#123;0&#125;」包含的 &#123;1&#125; 个项目名如下："</span><span class="token punctuation">,</span> assembly<span class="token punctuation">.</span><span class="token function">GetName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Name <span class="token operator">+</span> <span class="token string">".dll"</span><span class="token punctuation">,</span> types<span class="token punctuation">.</span><span class="token function">GetLength</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">int</span></span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> types<span class="token punctuation">.</span><span class="token function">GetLength</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                Console<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token string">"(&#123;0&#125;)"</span><span class="token punctuation">,</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                Classname <span class="token operator">=</span> types<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>FullName<span class="token punctuation">;</span>
+                Type <span class="token operator">=</span> types<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token function">Show</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"「&#123;0&#125;」共包含 &#123;1&#125; 个项目，每 10 个为 1 页，分成 &#123;2&#125; 页\n「&#123;0&#125;」的第 1 页项目名如下："</span><span class="token punctuation">,</span> assembly<span class="token punctuation">.</span><span class="token function">GetName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Name<span class="token punctuation">,</span> types<span class="token punctuation">.</span><span class="token function">GetLength</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> pages<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">int</span></span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                Console<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token string">"(&#123;0&#125;)"</span><span class="token punctuation">,</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                Classname <span class="token operator">=</span> types<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>FullName<span class="token punctuation">;</span>
+                Type <span class="token operator">=</span> types<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token function">Show</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">override</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Display</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">int</span></span> page<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">//显示指定页数</span>
+        <span class="token class-name"><span class="token keyword">int</span></span> start <span class="token operator">=</span> <span class="token punctuation">(</span>page <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">10</span><span class="token punctuation">;</span>
+        Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"「&#123;0&#125;」的第 &#123;1&#125; 页项目名如下："</span><span class="token punctuation">,</span> assembly<span class="token punctuation">.</span><span class="token function">GetName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Name<span class="token punctuation">,</span> page<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">int</span></span> i <span class="token operator">=</span> start<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> start <span class="token operator">+</span> <span class="token number">10</span> <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;</span> types<span class="token punctuation">.</span><span class="token function">GetLength</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            Console<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token string">"(&#123;0&#125;)"</span><span class="token punctuation">,</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Classname <span class="token operator">=</span> types<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>FullName<span class="token punctuation">;</span>
+            Type <span class="token operator">=</span> types<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token function">Show</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="main调用（反射程序集）"><a href="#main调用（反射程序集）" class="headerlink" title="main调用（反射程序集）"></a>main调用（反射程序集）</h3><p>程序集是从vs的输出窗口来的，表示任何正常的 .cs 档生成的 .dll 档都可以运行。<br><img src="/2020/11/21/C-Reflection/1.png" class="" title="图1"><br><pre class="line-numbers language-csharp" data-language="csharp"><code class="language-csharp"><span class="token class-name">Reflection_dll</span> redll <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">Reflection_dll</span><span class="token punctuation">(</span><span class="token string">@"C:\WINDOWS\Microsoft.Net\assembly\GAC_32\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+redll<span class="token punctuation">.</span><span class="token function">Display</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></p>
+<h3 id="结果输出"><a href="#结果输出" class="headerlink" title="结果输出"></a>结果输出</h3><pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">「mscorlib」共包含 3299 个项目，每 10 个为 1 页，分成 330 页
+「mscorlib」的第 1 页项目名如下：
+(1)「&lt;&gt;f__AnonymousType0&#96;1」类共有 7 个「成员」
+  共 5 个「方法」，列表如下：
+    -get_message
+    -Equals，需要 1 个参数
+        System.Object value
+    -GetHashCode
+    -ToString
+    -GetType
+  共 1 个「析构函数」，列表如下：
+    -.ctor
+  共 1 个「属性」，列表如下：
+    -message
+
+(2)「EmptyArray&#96;1」类共有 5 个「成员」
+  共 4 个「方法」，列表如下：
+    -Equals，需要 1 个参数
+        System.Object obj
+    -GetHashCode
+    -GetType
+    -ToString
+  共 1 个「字段」，列表如下：
+    -Value
+
+(3)「FXAssembly」类共有 4 个「成员」
+  共 4 个「方法」，列表如下：
+    -Equals，需要 1 个参数
+        System.Object obj
+    -GetHashCode
+    -GetType
+    -ToString
+
+(4)「ThisAssembly」类共有 4 个「成员」
+  共 4 个「方法」，列表如下：
+    -Equals，需要 1 个参数
+        System.Object obj
+    -GetHashCode
+    -GetType
+    -ToString
+
+(5)「AssemblyRef」类共有 4 个「成员」
+  共 4 个「方法」，列表如下：
+    -Equals，需要 1 个参数
+        System.Object obj
+    -GetHashCode
+    -GetType
+    -ToString
+
+(6)「Microsoft.Win32.IAssemblyEnum」类共有 3 个「成员」
+  共 3 个「方法」，列表如下：
+    -GetNextAssembly，需要 3 个参数
+        Microsoft.Win32.IApplicationContext&amp; ppAppCtx   Microsoft.Win32.IAssemblyName&amp; ppName   System.UInt32 dwFlags
+    -Reset
+    -Clone，需要 1 个参数
+        Microsoft.Win32.IAssemblyEnum&amp; ppEnum
+
+(7)「Microsoft.Win32.IApplicationContext」类共有 5 个「成员」
+  共 5 个「方法」，列表如下：
+    -SetContextNameObject，需要 1 个参数
+        Microsoft.Win32.IAssemblyName pName
+    -GetContextNameObject，需要 1 个参数
+        Microsoft.Win32.IAssemblyName&amp; ppName
+    -Set，需要 4 个参数
+        System.String szName    System.Int32 pvValue    System.UInt32 cbValue   System.UInt32 dwFlags
+    -Get，需要 4 个参数
+        System.String szName    System.Int32&amp; pvValue   System.UInt32&amp; pcbValue System.UInt32 dwFlags
+    -GetDynamicDirectory，需要 2 个参数
+        System.Int32&amp; wzDynamicDir      System.UInt32&amp; pdwSize
+
+(8)「Microsoft.Win32.IAssemblyName」类共有 9 个「成员」
+  共 9 个「方法」，列表如下：
+    -SetProperty，需要 3 个参数
+        System.UInt32 PropertyId        System.IntPtr pvProperty        System.UInt32 cbProperty
+    -GetProperty，需要 3 个参数
+        System.UInt32 PropertyId        System.IntPtr pvProperty        System.UInt32&amp; pcbProperty
+    -Finalize
+    -GetDisplayName，需要 3 个参数
+        System.IntPtr szDisplayName     System.UInt32&amp; pccDisplayName   System.UInt32 dwDisplayFlags
+    -BindToObject，需要 8 个参数
+        System.Object refIID    System.Object pAsmBindSink      Microsoft.Win32.IApplicationContext pApplicationContext System.String szCodeBase        System.Int64 llFlags    System.Int32 pvReserved System.UInt32 cbReserved        System.Int32&amp; ppv
+    -GetName，需要 2 个参数
+        System.UInt32&amp; lpcwBuffer       System.Int32&amp; pwzName
+    -GetVersion，需要 2 个参数
+        System.UInt32&amp; pdwVersionHi     System.UInt32&amp; pdwVersionLow
+    -IsEqual，需要 2 个参数
+        Microsoft.Win32.IAssemblyName pName     System.UInt32 dwCmpFlags
+    -Clone，需要 1 个参数
+        Microsoft.Win32.IAssemblyName&amp; pName
+
+(9)「Microsoft.Win32.ASM_CACHE」类共有 7 个「成员」
+  共 4 个「方法」，列表如下：
+    -Equals，需要 1 个参数
+        System.Object obj
+    -GetHashCode
+    -GetType
+    -ToString
+  共 3 个「字段」，列表如下：
+    -ZAP
+    -GAC
+    -DOWNLOAD
+
+(10)「Microsoft.Win32.CANOF」类共有 6 个「成员」
+  共 4 个「方法」，列表如下：
+    -Equals，需要 1 个参数
+        System.Object obj
+    -GetHashCode
+    -GetType
+    -ToString
+  共 2 个「字段」，列表如下：
+    -PARSE_DISPLAY_NAME
+    -SET_DEFAULT_VALUES<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C#</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/11/21/C-Get-and-Set/" rel="prev" title="C# 笔记：Get 和 Set">
+                  <i class="fa fa-chevron-left"></i> C# 笔记：Get 和 Set
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chan Ka Chi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+</body>
+</html>

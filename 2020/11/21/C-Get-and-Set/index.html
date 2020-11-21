@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+<meta name="description" content="简介：　　顾名思义，是记录 Get 和 Set 用法的 C# 笔记~　　Get 和 Set 在《C# 程序设计教程（第3版）》中位于「5.7 属性」一节。 引用书中定义如下： 　　属性与字段相似，都是类成员，都有类型，可以被赋值和读取。属性提供了对类或对象成员的访问。通常情况下，将字段设置成私有的，设计一个对其进行读或写的属性。因此更充分地体现了对象的封装性。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C# 笔记：Get 和 Set">
+<meta property="og:url" content="http://example.com/2020/11/21/C-Get-and-Set/index.html">
+<meta property="og:site_name" content="家志嘅家">
+<meta property="og:description" content="简介：　　顾名思义，是记录 Get 和 Set 用法的 C# 笔记~　　Get 和 Set 在《C# 程序设计教程（第3版）》中位于「5.7 属性」一节。 引用书中定义如下： 　　属性与字段相似，都是类成员，都有类型，可以被赋值和读取。属性提供了对类或对象成员的访问。通常情况下，将字段设置成私有的，设计一个对其进行读或写的属性。因此更充分地体现了对象的封装性。">
+<meta property="og:locale" content="zh_HK">
+<meta property="article:published_time" content="2020-11-21T14:35:19.000Z">
+<meta property="article:modified_time" content="2020-11-21T16:11:04.352Z">
+<meta property="article:author" content="Chan Ka Chi">
+<meta property="article:tag" content="C#">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2020/11/21/C-Get-and-Set/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-HK'
+  };
+</script>
+<title>C# 笔记：Get 和 Set | 家志嘅家</title>
+  
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="家志嘅家" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">家志嘅家</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">HBpencil.ga</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概覽
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">简介：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E4%B9%A6%E4%B8%AD%E5%AE%9A%E4%B9%89%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">引用书中定义如下：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F%E4%B8%BA%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">语法格式为：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">实例：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HB-Time-cs%EF%BC%9A"><span class="nav-number">4.1.</span> <span class="nav-text">HB_Time.cs：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Program-cs%EF%BC%9A"><span class="nav-number">4.2.</span> <span class="nav-text">Program.cs：</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chan Ka Chi</p>
+  <div class="site-description" itemprop="description">HBpencil用來放筆記、記錄的博客網站</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-HK">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/21/C-Get-and-Set/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chan Ka Chi">
+      <meta itemprop="description" content="HBpencil用來放筆記、記錄的博客網站">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="家志嘅家">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C# 笔记：Get 和 Set
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-11-21 22:35:19" itemprop="dateCreated datePublished" datetime="2020-11-21T22:35:19+08:00">2020-11-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2020-11-22 00:11:04" itemprop="dateModified" datetime="2020-11-22T00:11:04+08:00">2020-11-22</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/C-%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">C# 笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="简介："><a href="#简介：" class="headerlink" title="简介："></a>简介：</h2><p>　　顾名思义，是记录 Get 和 Set 用法的 C# 笔记~<br>　　Get 和 Set 在《C# 程序设计教程（第3版）》中位于「5.7 属性」一节。</p>
+<h2 id="引用书中定义如下："><a href="#引用书中定义如下：" class="headerlink" title="引用书中定义如下："></a>引用书中定义如下：</h2><blockquote>
+<c style="color: #07e4c9;">　　属性与字段相似，都是类成员，都有类型，可以被赋值和读取。属性提供了对类或对象成员的访问。通常情况下，将字段设置成私有的，设计一个对其进行读或写的属性。因此更充分地体现了对象的封装性。</c>
+
+</blockquote>
+<a id="more"></a>
+<h2 id="语法格式为："><a href="#语法格式为：" class="headerlink" title="语法格式为："></a>语法格式为：</h2><pre class="line-numbers language-csharp" data-language="csharp"><code class="language-csharp"><span class="token comment">//public 可以换成 private 和 protected</span>
+<span class="token keyword">public</span> <span class="token operator">&lt;</span>数据类型<span class="token operator">></span> <span class="token operator">&lt;</span>属性名称<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">get</span>
+    <span class="token keyword">set</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="实例："><a href="#实例：" class="headerlink" title="实例："></a>实例：</h2><h3 id="HB-Time-cs："><a href="#HB-Time-cs：" class="headerlink" title="HB_Time.cs："></a><c style="color: red;">HB_Time.cs：</c></h3><pre class="line-numbers language-csharp" data-language="csharp"><code class="language-csharp"><span class="token keyword">using</span> <span class="token namespace">System</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">HB_Time</span> <span class="token punctuation">&#123;</span> <span class="token comment">//第5.7节 属性 Get 和 Set</span>
+    <span class="token comment">//核心数值，时分秒的赋值改变都会使其改变，时分秒的获取都要先获取它再处理。</span>
+    <span class="token comment">//它是个6位数，时占头2位，分占中间2位，秒占后2位。</span>
+    <span class="token keyword">private</span> <span class="token class-name"><span class="token keyword">int</span></span> time<span class="token punctuation">;</span> 
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">int</span></span> Seconds <span class="token punctuation">&#123;</span>
+        <span class="token keyword">get</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> time <span class="token operator">%</span> <span class="token number">100</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+        <span class="token keyword">set</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token keyword">value</span> <span class="token operator">></span> <span class="token number">59</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">value</span> <span class="token operator">-=</span> <span class="token number">60</span><span class="token punctuation">;</span>
+                time <span class="token operator">+=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            time <span class="token operator">-=</span> Seconds<span class="token punctuation">;</span>
+            time <span class="token operator">+=</span> <span class="token keyword">value</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>Minutes <span class="token operator">></span> <span class="token number">59</span><span class="token punctuation">)</span> time <span class="token operator">+=</span> <span class="token number">40</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">int</span></span> Minutes <span class="token punctuation">&#123;</span>
+        <span class="token keyword">get</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> time <span class="token operator">%</span> <span class="token number">10000</span> <span class="token operator">/</span> <span class="token number">100</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+        <span class="token keyword">set</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token keyword">value</span> <span class="token operator">></span> <span class="token number">59</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">value</span> <span class="token operator">-=</span> <span class="token number">60</span><span class="token punctuation">;</span>
+                time <span class="token operator">+=</span> <span class="token number">10000</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            time <span class="token operator">-=</span> Minutes <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">;</span>
+            time <span class="token operator">+=</span> <span class="token keyword">value</span> <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>Minutes <span class="token operator">></span> <span class="token number">59</span><span class="token punctuation">)</span> time <span class="token operator">+=</span> <span class="token number">4000</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">int</span></span> Hours <span class="token punctuation">&#123;</span>
+        <span class="token keyword">get</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> time <span class="token operator">/</span> <span class="token number">10000</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+        <span class="token keyword">set</span> <span class="token punctuation">&#123;</span>
+            time <span class="token operator">-=</span> Hours <span class="token operator">*</span> <span class="token number">10000</span><span class="token punctuation">;</span>
+            time <span class="token operator">+=</span> <span class="token keyword">value</span> <span class="token operator">*</span> <span class="token number">10000</span><span class="token punctuation">;</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>Hours <span class="token operator">></span> <span class="token number">23</span><span class="token punctuation">)</span> time <span class="token operator">-=</span> <span class="token number">240000</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">Display</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">//显示时间</span>
+        Console<span class="token punctuation">.</span><span class="token function">WriteLine</span><span class="token punctuation">(</span><span class="token string">"时间为 [&#123;0&#125;:&#123;1&#125;:&#123;2&#125;]"</span><span class="token punctuation">,</span> Hours<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">PadLeft</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string character">'0'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Minutes<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">PadLeft</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string character">'0'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Seconds<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">PadLeft</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string character">'0'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Program-cs："><a href="#Program-cs：" class="headerlink" title="Program.cs："></a><c style="color: red;">Program.cs：</c></h3><pre class="line-numbers language-csharp" data-language="csharp"><code class="language-csharp"><span class="token class-name">HB_Time</span> t <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">HB_Time</span> <span class="token punctuation">&#123;</span>
+    Seconds <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">//系统直接调用 set 属性赋值</span>
+    Minutes <span class="token operator">=</span> <span class="token number">35</span><span class="token punctuation">,</span> <span class="token comment">//系统直接调用 set 属性赋值</span>
+    Hours <span class="token operator">=</span> <span class="token number">12</span> <span class="token comment">//系统直接调用 set 属性赋值</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+t<span class="token punctuation">.</span><span class="token function">Display</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//调用 Display() 方法显示时间</span>
+<span class="token comment">//time的值为123501</span>
+<span class="token comment">//输出：“时间为 [12:35:01]”</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C#</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/11/20/Supporting-LaTeX-in-Hexo/" rel="prev" title="如何让 Hexo 支持 LaTeX ？">
+                  <i class="fa fa-chevron-left"></i> 如何让 Hexo 支持 LaTeX ？
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/11/21/C-Reflection/" rel="next" title="C# 笔记：反射">
+                  C# 笔记：反射 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chan Ka Chi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+</body>
+</html>

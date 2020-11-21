@@ -30,13 +30,11 @@
 <meta property="og:site_name" content="家志嘅家">
 <meta property="og:description" content="简介：　　顾名思义，是记录 反射(Reflection) 用法的 C# 笔记~　　反射在《C# 程序设计教程（第3版）》中位于「5.7 属性」一节。 引用书中定义如下： 　　反射(Reflection)是 .NET 中重要的机制，通过反射可以在运行时获得 .NET 中每一个类型（包括类、结构、委托、接口、枚举等）的成员，包括方法、属性、事件、和构造函数等，还可以获得每个成员的名称、限定符和参数等。">
 <meta property="og:locale" content="zh_HK">
-<meta property="og:image" content="http://example.com/2020/11/21/C-Reflection/1.png">
 <meta property="article:published_time" content="2020-11-21T14:35:37.000Z">
 <meta property="article:modified_time" content="2020-11-21T16:55:50.008Z">
 <meta property="article:author" content="Chan Ka Chi">
 <meta property="article:tag" content="C#">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2020/11/21/C-Reflection/1.png">
 
 
 <link rel="canonical" href="http://example.com/2020/11/21/C-Reflection/">
@@ -169,12 +167,16 @@
         </a>
       </div>
       <div class="site-state-item site-state-categories">
+            <a href="/categories/">
         <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分類</span>
+        </a>
       </div>
       <div class="site-state-item site-state-tags">
+            <a href="/tags/">
         <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">標籤</span>
+        </a>
       </div>
   </nav>
 </div>
@@ -400,7 +402,7 @@
         <span class="token punctuation">&#125;</span>
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="main调用（反射程序集）"><a href="#main调用（反射程序集）" class="headerlink" title="main调用（反射程序集）"></a>main调用（反射程序集）</h3><p>程序集是从vs的输出窗口来的，表示任何正常的 .cs 档生成的 .dll 档都可以运行。<br><img src="/2020/11/21/C-Reflection/1.png" class="" title="图1"><br><pre class="line-numbers language-csharp" data-language="csharp"><code class="language-csharp"><span class="token class-name">Reflection_dll</span> redll <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">Reflection_dll</span><span class="token punctuation">(</span><span class="token string">@"C:\WINDOWS\Microsoft.Net\assembly\GAC_32\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h3 id="main调用（反射程序集）"><a href="#main调用（反射程序集）" class="headerlink" title="main调用（反射程序集）"></a>main调用（反射程序集）</h3><p>程序集是从vs的输出窗口来的，表示任何正常的 .cs 档生成的 .dll 档都可以运行。<br><br><pre class="line-numbers language-csharp" data-language="csharp"><code class="language-csharp"><span class="token class-name">Reflection_dll</span> redll <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">Reflection_dll</span><span class="token punctuation">(</span><span class="token string">@"C:\WINDOWS\Microsoft.Net\assembly\GAC_32\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 redll<span class="token punctuation">.</span><span class="token function">Display</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></p>
 <h3 id="结果输出"><a href="#结果输出" class="headerlink" title="结果输出"></a>结果输出</h3><pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">「mscorlib」共包含 3299 个项目，每 10 个为 1 页，分成 330 页
 「mscorlib」的第 1 页项目名如下：
